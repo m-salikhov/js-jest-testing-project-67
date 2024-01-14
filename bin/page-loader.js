@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-import run from '../src/index.js';
+import savePage from '../src/index.js';
 import chalk from 'chalk';
 
 program
@@ -12,7 +12,7 @@ program
   .action(async (url, option) => {
     const output = option.output ? option.output : null;
 
-    const { filepath } = await run(url, output);
+    const { filepath } = await savePage(url, output);
 
     console.log(chalk.green('Page saved: ' + filepath));
   });
