@@ -6,15 +6,14 @@ import chalk from 'chalk';
 
 async function run(url, output) {
   const directory = output ? process.cwd() + output : process.cwd();
-  console.log(directory);
   const fileName = makeFileName(url);
-  let filepath = path.join(directory, fileName);
+  const filepath = path.join(directory, fileName);
 
   let html;
   try {
     html = await axios.get(url).then((res) => res.data);
   } catch (error) {
-    console.log(chalk.red('Ошибка при загрузке страницы: ' + url));
+    console.log(chalk.red('Error on page load: ' + url));
     process.exit(1);
   }
 
@@ -22,6 +21,7 @@ async function run(url, output) {
     await writeFile(filepath, html);
   } catch (error) {
     console.log(chalk.red(error.stack));
+    process.exit(2);
   }
 
   return { filepath };
