@@ -10,7 +10,7 @@ program
   .version('0.0.1', '-v, -V, --version', 'output the current version')
   .argument('<url>')
   .action(async (url, option) => {
-    const output = option.output ? option.output : null;
+    const output = option.output ? option.output : '';
 
     const { filepath } = await savePage(url, output);
 

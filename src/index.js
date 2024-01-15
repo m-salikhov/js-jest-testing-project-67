@@ -3,10 +3,10 @@ import path from 'path';
 import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
 
-async function savePage(url, output) {
-  const directory = output ? process.cwd() + output : process.cwd();
+async function savePage(url, output = '') {
+  // const directory = output ? process.cwd() + output : process.cwd();
   const fileName = makeFileName(url);
-  const filepath = path.join(directory, fileName);
+  const filepath = path.join(process.cwd(), output, fileName);
 
   let html;
   try {
