@@ -1,13 +1,10 @@
 import makeFileName from '../src/makeFileName.js';
+import parse from '../src/parse.js';
 import path from 'path';
 import axios from 'axios';
-import { writeFile } from 'node:fs/promises';
+import { writeFile, mkdir } from 'node:fs/promises';
 
 async function savePage(url, output = '') {
-  // const directory = output ? process.cwd() + output : process.cwd();
-  const fileName = makeFileName(url);
-  const filepath = path.join(process.cwd(), output, fileName);
-
   let html;
   try {
     html = await axios.get(url).then((res) => res.data);
@@ -15,13 +12,34 @@ async function savePage(url, output = '') {
     throw error.cause;
   }
 
+  const directoryName = makeFileName(url);
+  const directoryPath = path.join(process.cwd(), output, directoryName + '_files');
   try {
-    await writeFile(filepath, html);
+    await mkdir(directoryPath);
   } catch (error) {
     throw error;
   }
 
-  return { filepath };
+  const fileNameHTML = makeFileName(url);
+  const filepathHTML = path.join(directoryPath, fileNameHTML + '.html');
+
+  try {
+    await writeFile(filepathHTML, html);
+  } catch (error) {
+    throw error;
+  }
+
+  try {
+    await parse(html, directoryPath);
+  } catch (error) {
+    throw error;
+  }
+
+  return { directoryPath };
 }
 
 export default savePage;
+
+const url = 'https://habr.com/ru/articles/787390';
+
+savePage(url);
