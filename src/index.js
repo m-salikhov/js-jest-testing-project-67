@@ -4,15 +4,15 @@ import path from 'path';
 import axios from 'axios';
 import { writeFile, mkdir } from 'node:fs/promises';
 
-async function savePage(url, output = '') {
+async function savePage(link, output = '') {
   let html;
   try {
-    html = await axios.get(url).then((res) => res.data);
+    html = await axios.get(link).then((res) => res.data);
   } catch (error) {
     throw error.cause;
   }
 
-  const directoryName = makeFileName(url);
+  const directoryName = makeFileName(link);
   const directoryPath = path.join(process.cwd(), output, directoryName + '_files');
   try {
     await mkdir(directoryPath);
@@ -20,17 +20,8 @@ async function savePage(url, output = '') {
     throw error;
   }
 
-  const fileNameHTML = makeFileName(url);
-  const filepathHTML = path.join(directoryPath, fileNameHTML + '.html');
-
   try {
-    await writeFile(filepathHTML, html);
-  } catch (error) {
-    throw error;
-  }
-
-  try {
-    await parse(html, directoryPath);
+    await parse(html, directoryPath, link);
   } catch (error) {
     throw error;
   }
@@ -39,7 +30,3 @@ async function savePage(url, output = '') {
 }
 
 export default savePage;
-
-const url = 'https://habr.com/ru/articles/787390';
-
-savePage(url);

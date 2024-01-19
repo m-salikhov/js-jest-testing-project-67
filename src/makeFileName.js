@@ -5,7 +5,7 @@ function makeFileName(str) {
 
   const withoutProtocol = str.replace(/(http|https):\/\//, '');
 
-  if (/\.(png|jpeg|jpg)$/.test(withoutProtocol)) {
+  if (/\.(png|jpeg|jpg|gif)$/.test(withoutProtocol)) {
     const indexExtesion = withoutProtocol.lastIndexOf('.');
     const extesion = withoutProtocol.slice(indexExtesion);
 
