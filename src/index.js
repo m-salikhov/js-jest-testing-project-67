@@ -2,7 +2,7 @@ import makeFileName from '../src/makeFileName.js';
 import parse from '../src/parse.js';
 import path from 'path';
 import axios from 'axios';
-import { writeFile, mkdir } from 'node:fs/promises';
+import { mkdir } from 'node:fs/promises';
 
 async function savePage(link, output = '') {
   let html;
@@ -25,6 +25,8 @@ async function savePage(link, output = '') {
   } catch (error) {
     throw error;
   }
+
+  console.log({ directoryPath });
 
   return { directoryPath };
 }

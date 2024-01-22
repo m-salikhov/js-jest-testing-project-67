@@ -7,7 +7,7 @@ const options = {
   parser: 'html',
   tabWidth: 2,
   singleAttributePerLine: false,
-  printWidth: 160,
+  printWidth: 180,
 };
 
 const prettifyHTMl = async (filepath) => {
