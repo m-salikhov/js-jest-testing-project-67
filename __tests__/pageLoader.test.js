@@ -31,7 +31,7 @@ beforeAll(async () => {
 
   dataHTML = await fs.readFile(filePathFixtures('lesson3-input.html'), 'utf-8');
   dataImage = await fs.readFile(filePathFixtures('ru-hexlet-io-assets-professions-nodejs.png'));
-  dataCSS = await fs.readFile(filePathFixtures('lesson-3.css'));
+  dataCSS = await fs.readFile(filePathFixtures('lesson-3.css'), 'utf-8');
 
   configureNock();
 });
@@ -40,11 +40,13 @@ test('download and save html', async () => {
   const { directoryPath } = await pageLoader('https://www.test.com/test', relativePathToTempDir);
 
   const outputFixture = await fs.readFile(filePathFixtures('lesson3-output.html'), 'utf-8');
-  const savedFileHTML = await fs.readFile(directoryPath + '/www-test-com-test.html', 'utf-8');
-  const savedFileImage = await fs.readFile(directoryPath + '/www-test-com-assets-professions-nodejs.png');
+  const savedHTML = await fs.readFile(directoryPath + '/www-test-com-test.html', 'utf-8');
+  const savedImage = await fs.readFile(directoryPath + '/www-test-com-assets-professions-nodejs.png');
+  const savedCSS = await fs.readFile(directoryPath + '/www-test-com-assets-application.css', 'utf-8');
 
-  expect(savedFileHTML).toBe(outputFixture.replace(/\r/g, ''));
-  expect(savedFileImage.equals(dataImage)).toBe(true);
+  expect(savedHTML).toBe(outputFixture.replace(/\r/g, ''));
+  expect(savedImage.equals(dataImage)).toBe(true);
+  expect(savedCSS).toBe(dataCSS);
 });
 
 test('throw error on wrong file path', async () => {

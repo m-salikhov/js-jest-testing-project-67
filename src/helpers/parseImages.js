@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
-import makeFileName from '../makeFileName';
+import makeFileName from './makeFileName';
 
 async function parseImages($, directoryPath, url) {
   const imgs = $('img');

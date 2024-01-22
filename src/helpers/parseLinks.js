@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
-import makeFileName from '../makeFileName';
-import { checkExtension } from '../makeFileName';
+import makeFileName from './makeFileName';
+import { checkExtension } from './makeFileName';
 
 async function parseLinks($, directoryPath, url) {
   const linksElements = $('link');

@@ -1,4 +1,4 @@
-import makeFileName from '../src/makeFileName.js';
+import makeFileName from './helpers/makeFileName.js';
 import parse from '../src/parse.js';
 import path from 'path';
 import axios from 'axios';
