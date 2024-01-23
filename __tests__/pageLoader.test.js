@@ -39,7 +39,7 @@ beforeAll(async () => {
   configureNock();
 });
 
-test('download and save html', async () => {
+test('download and save', async () => {
   const { directoryPath } = await pageLoader('https://ru.hexlet.io/courses', relativePathToTempDir);
 
   const outputFixture = await fs.readFile(filePathFixtures('lesson3-output.html'), 'utf-8');

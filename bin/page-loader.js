@@ -12,9 +12,9 @@ program
   .action(async (url, option) => {
     const output = option.output ? option.output : '';
 
-    const { filepath } = await savePage(url, output);
+    const { directoryPath } = await savePage(url, output);
 
-    console.log(chalk.green('Page saved: ' + filepath));
+    console.log(chalk.green('Page saved: ' + directoryPath));
   });
 
 program.parse(process.argv);
