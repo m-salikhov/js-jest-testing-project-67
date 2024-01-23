@@ -5,6 +5,7 @@ import path from 'path';
 import prettifyHTMl from './helpers/prettifyHTML.js';
 import parseImages from './helpers/parseImages.js';
 import parseLinks from './helpers/parseLinks.js';
+import parseScripts from './helpers/parseScripts.js';
 
 async function parse(html, directoryPath, link) {
   const url = new URL(link);
@@ -13,6 +14,7 @@ async function parse(html, directoryPath, link) {
 
   await parseImages($, directoryPath, url);
   await parseLinks($, directoryPath, url);
+  await parseScripts($, directoryPath, url);
 
   const fileNameHTML = makeFileName(url.href);
   const filepathHTML = path.join(directoryPath, fileNameHTML + '.html');
