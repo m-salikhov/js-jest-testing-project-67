@@ -1,5 +1,5 @@
 export function checkExtension(string) {
-  return /\.(png|jpeg|jpg|gif|css|js|xml|ico|svg)$/.test(string);
+  return /\.(png|jpeg|jpg|gif|css|js|xml|ico|svg|rss)$/.test(string);
 }
 
 function makeFileName(str) {

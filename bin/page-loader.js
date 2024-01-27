@@ -14,7 +14,7 @@ program
 
     const { directoryPath } = await savePage(url, output);
 
-    console.log(chalk.green('Page saved: ' + directoryPath));
+    console.log(chalk.green('Page was successfully downloaded: ' + directoryPath));
   });
 
 program.parse(process.argv);

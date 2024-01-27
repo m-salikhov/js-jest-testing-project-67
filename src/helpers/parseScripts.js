@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
-import makeFileName from './makeFileName.js';
-import { checkExtension } from './makeFileName.js';
+import makeFileName from '../utils/makeFileName.js';
+import { checkExtension } from '../utils/makeFileName.js';
 
 async function parseScripts($, directoryPath, url) {
   const scriptsElements = $('script');
@@ -10,8 +10,6 @@ async function parseScripts($, directoryPath, url) {
   scriptsElements.each((i, el) => {
     scripts.push($(el).attr('src'));
   });
-
-  console.log(url.origin);
 
   const scriptsNames = [];
   for (let [index, script] of scripts.entries()) {

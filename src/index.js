@@ -1,13 +1,13 @@
-import makeFileName from './helpers/makeFileName.js';
+import makeFileName from './utils/makeFileName.js';
 import parse from '../src/parse.js';
 import path from 'path';
-import axios from 'axios';
+import _axios from './utils/axiosInstance.js';
 import { mkdir } from 'node:fs/promises';
 
 async function savePage(link, output = '') {
   let html;
   try {
-    html = await axios.get(link).then((res) => res.data);
+    html = await _axios.get(link).then((res) => res.data);
   } catch (error) {
     throw error.cause;
   }
@@ -25,8 +25,6 @@ async function savePage(link, output = '') {
   } catch (error) {
     throw error;
   }
-
-  console.log({ directoryPath });
 
   return { directoryPath };
 }

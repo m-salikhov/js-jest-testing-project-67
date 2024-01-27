@@ -1,8 +1,8 @@
 import * as cheerio from 'cheerio';
 import { writeFile } from 'node:fs/promises';
-import makeFileName from './helpers/makeFileName.js';
+import makeFileName from './utils/makeFileName.js';
 import path from 'path';
-import prettifyHTMl from './helpers/prettifyHTML.js';
+import prettifyHTMl from './utils/prettifyHTML.js';
 import parseImages from './helpers/parseImages.js';
 import parseLinks from './helpers/parseLinks.js';
 import parseScripts from './helpers/parseScripts.js';

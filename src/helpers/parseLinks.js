@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
-import { checkExtension } from './makeFileName.js';
-import makeFileName from './makeFileName.js';
+import { checkExtension } from '../utils/makeFileName.js';
+import makeFileName from '../utils/makeFileName.js';
 
 async function parseLinks($, directoryPath, url) {
   const linksElements = $('link');
@@ -22,6 +22,11 @@ async function parseLinks($, directoryPath, url) {
       linksNames.push(link);
       continue;
     }
+
+    // if (link.includes('rss')) {
+    //   linksNames.push(link);
+    //   continue;
+    // }
 
     if (/^\/[^\/]/.test(link) && checkExtension(link)) {
       linksNames.push(makeFileName(url.origin + link));
