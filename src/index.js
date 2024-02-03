@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import makeFileName from './utils/makeFileName.js';
 import parse from '../src/parse.js';
 import path from 'path';

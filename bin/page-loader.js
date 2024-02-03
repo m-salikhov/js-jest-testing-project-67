@@ -2,7 +2,7 @@
 
 import { program } from 'commander';
 import savePage from '../src/index.js';
-import chalk from 'chalk';
+import debugLogger from '../src/utils/debugLog.js';
 
 program
   .description('Download and save html')
@@ -14,7 +14,7 @@ program
 
     const { directoryPath } = await savePage(url, output);
 
-    console.log(chalk.green('Page was successfully downloaded: ' + directoryPath));
+    debugLogger('Page was successfully downloaded: %o', directoryPath);
   });
 
 program.parse(process.argv);

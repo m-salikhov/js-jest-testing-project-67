@@ -2,6 +2,7 @@ import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
 import { checkExtension } from '../utils/makeFileName.js';
 import makeFileName from '../utils/makeFileName.js';
+import debugLogger from '../utils/debugLog.js';
 
 async function parseLinks($, directoryPath, url) {
   const linksElements = $('link');
@@ -51,6 +52,7 @@ async function parseLinks($, directoryPath, url) {
     try {
       const data = await axios.get(link).then((res) => res.data);
       await writeFile(directoryPath + '/' + linksNames[index], data);
+      debugLogger('file created %o', linksNames[index]);
     } catch (error) {
       console.log('Axios can`t get ' + link);
     }

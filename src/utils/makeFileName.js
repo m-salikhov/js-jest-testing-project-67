@@ -7,6 +7,10 @@ function makeFileName(str) {
     return undefined;
   }
 
+  if (str.at(-1) === `/`) {
+    str = str.slice(0, str.length - 1);
+  }
+
   const withoutProtocol = str.replace(/(http|https):\/\//, '');
 
   if (checkExtension(withoutProtocol)) {

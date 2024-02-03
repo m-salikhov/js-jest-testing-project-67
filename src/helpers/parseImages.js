@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
 import makeFileName from '../utils/makeFileName.js';
+import debugLogger from '../utils/debugLog.js';
 
 async function parseImages($, directoryPath, url) {
   const imgs = $('img');
@@ -30,6 +31,7 @@ async function parseImages($, directoryPath, url) {
     try {
       const arrayBuffer = await axios.get(link, { responseType: 'arraybuffer' }).then((res) => res.data);
       await writeFile(directoryPath + '/' + imagesNames[index], arrayBuffer);
+      debugLogger('file created %o', imagesNames[index]);
     } catch (error) {
       console.log('Axios cant get ' + link);
     }

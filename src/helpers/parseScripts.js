@@ -2,6 +2,7 @@ import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
 import makeFileName from '../utils/makeFileName.js';
 import { checkExtension } from '../utils/makeFileName.js';
+import debugLogger from '../utils/debugLog.js';
 
 async function parseScripts($, directoryPath, url) {
   const scriptsElements = $('script');
@@ -40,6 +41,7 @@ async function parseScripts($, directoryPath, url) {
     try {
       const data = await axios.get(script).then((res) => res.data);
       await writeFile(directoryPath + '/' + scriptsNames[index], data);
+      debugLogger('file created %o', scriptsNames[index]);
     } catch (error) {
       console.log('Axios can`t get ' + script);
     }

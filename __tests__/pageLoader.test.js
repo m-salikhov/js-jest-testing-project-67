@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import pageLoader from '../src/index.js';
 import os from 'node:os';
 import fs from 'node:fs/promises';
