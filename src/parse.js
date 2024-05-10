@@ -17,11 +17,11 @@ async function parse(html, directoryPath, link) {
   await parseScripts($, directoryPath, url);
 
   const fileNameHTML = makeFileName(url.href);
-  const filepathHTML = path.join(directoryPath, fileNameHTML + '.html');
+  const filePathHTML = path.join(directoryPath, fileNameHTML + '.html');
 
   try {
-    await writeFile(filepathHTML, $.html().trim());
-    await prettifyHTMl(filepathHTML);
+    await writeFile(filePathHTML, $.html().trim());
+    await prettifyHTMl(filePathHTML);
   } catch (error) {
     throw error;
   }

@@ -31,7 +31,7 @@ async function parseImages($, directoryPath, url) {
     try {
       const arrayBuffer = await axios.get(link, { responseType: 'arraybuffer' }).then((res) => res.data);
       await writeFile(directoryPath + '/' + imagesNames[index], arrayBuffer);
-      debugLogger('file created %o', imagesNames[index]);
+      debugLogger('file img created %o', imagesNames[index]);
     } catch (error) {
       console.log('Axios cant get ' + link);
     }

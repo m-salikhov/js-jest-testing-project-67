@@ -52,7 +52,7 @@ async function parseLinks($, directoryPath, url) {
     try {
       const data = await axios.get(link).then((res) => res.data);
       await writeFile(directoryPath + '/' + linksNames[index], data);
-      debugLogger('file created %o', linksNames[index]);
+      debugLogger('file link created %o', linksNames[index]);
     } catch (error) {
       console.log('Axios can`t get ' + link);
     }

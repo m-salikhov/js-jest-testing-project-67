@@ -41,7 +41,7 @@ async function parseScripts($, directoryPath, url) {
     try {
       const data = await axios.get(script).then((res) => res.data);
       await writeFile(directoryPath + '/' + scriptsNames[index], data);
-      debugLogger('file created %o', scriptsNames[index]);
+      debugLogger('file script created %o', scriptsNames[index]);
     } catch (error) {
       console.log('Axios can`t get ' + script);
     }
