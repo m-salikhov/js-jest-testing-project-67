@@ -14,10 +14,10 @@ async function parse(html, directoryPath, link) {
 
   await parseImages($, directoryPath, url);
   await parseLinks($, directoryPath, url);
-  await parseScripts($, directoryPath, url);
+  // await parseScripts($, directoryPath, url);
 
-  const fileNameHTML = makeFileName(url.href);
-  const filePathHTML = path.join(directoryPath, fileNameHTML + '.html');
+  const fileNameHTML = link.replace(/(http|https):\/\//, '').replace(/[^\p{L}\d]/gu, '-') + '.html';
+  const filePathHTML = path.join(directoryPath, fileNameHTML);
 
   try {
     await writeFile(filePathHTML, $.html().trim());

@@ -6,6 +6,10 @@ import _axios from './utils/axiosInstance.js';
 import { mkdir } from 'node:fs/promises';
 
 async function savePage(link, output = '') {
+  if (link.at(-1) === `/`) {
+    link = link.slice(0, link.length - 1);
+  }
+
   let html;
   try {
     html = await _axios.get(link).then((res) => res.data);
@@ -13,8 +17,9 @@ async function savePage(link, output = '') {
     throw error.cause;
   }
 
-  const directoryName = makeFileName(link);
-  const directoryPath = path.join(process.cwd(), output, directoryName + '_files');
+  const directoryName = link.replace(/(http|https):\/\//, '').replace(/[^\p{L}\d]/gu, '-') + '_files';
+
+  const directoryPath = path.join(process.cwd(), output, directoryName);
   try {
     await mkdir(directoryPath);
   } catch (error) {

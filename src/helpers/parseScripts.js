@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
 import makeFileName from '../utils/makeFileName.js';
-import { checkExtension } from '../utils/makeFileName.js';
+import { getExtension } from '../utils/makeFileName.js';
 import debugLogger from '../utils/debugLog.js';
 
 async function parseScripts($, directoryPath, url) {
@@ -28,12 +28,12 @@ async function parseScripts($, directoryPath, url) {
       scriptsNames.push(makeFileName(script));
     }
 
-    if (/^\/[^\/]/.test(script) && checkExtension(script)) {
+    if (/^\/[^\/]/.test(script) && getExtension(script)) {
       scriptsNames.push(makeFileName(url.origin + script));
       script = url.origin + script;
     }
 
-    if (/^\/\//.test(script && checkExtension(script))) {
+    if (/^\/\//.test(script && getExtension(script))) {
       scriptsNames.push(makeFileName(url.origin + script));
       script = url.protocol + script;
     }
