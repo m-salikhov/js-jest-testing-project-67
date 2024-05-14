@@ -24,52 +24,9 @@ async function parseLinks($, directoryPath, url) {
       await writeFile(directoryPath + '/' + fileName, data);
       debugLogger('file link created %o', fileName);
     } catch (error) {
-      // console.error('Axios can`t get ' + link);
-      console.log(error);
+      console.error('Axios can`t get ' + link);
     }
   }
-
-  // const linksNames = [];
-  // for (let [index, link] of links.entries()) {
-  //   if (!link) {
-  //     linksNames.push('');
-  //     continue;
-  //   }
-
-  //   if (link.includes('http') && !link.includes(url.origin)) {
-  //     linksNames.push(link);
-  //     continue;
-  //   }
-
-  //   if (/^\/[^\/]/.test(link) && getExtension(link)) {
-  //     linksNames.push(makeFileName(url.origin + link));
-  //     link = url.origin + link;
-  //   }
-  //   if (/^\/[^\/]/.test(link) && !getExtension(link)) {
-  //     linksNames.push(makeFileName(url.origin + link) + '.html');
-  //     link = url.origin + link;
-  //     continue;
-  //   }
-
-  //   if (/^\/\//.test(link && getExtension(link))) {
-  //     linksNames.push(makeFileName(url.origin + link));
-  //     link = url.protocol + link;
-  //   }
-  //   if (/^\/\//.test(link && !getExtension(link))) {
-  //     linksNames.push(makeFileName(url.origin + link) + '.html');
-  //     link = url.protocol + link;
-  //     continue;
-  //   }
-
-  //   try {
-  //     console.log(index, link);
-  //     const data = await axios.get(link).then((res) => res.data);
-  //     await writeFile(directoryPath + '/' + linksNames[index], data);
-  //     debugLogger('file link created %o', linksNames[index]);
-  //   } catch (error) {
-  //     console.error('Axios can`t get ' + link);
-  //   }
-  // }
 
   // linksElements.each((i, el) => {
   //   $(el).attr('href', linksNames[i]);
