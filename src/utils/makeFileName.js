@@ -5,8 +5,8 @@ export function getExtension(str) {
 }
 
 function makeFileName(str) {
-  if (!str || !getExtension(str)) {
-    return null;
+  if (str.at(-1) === `/`) {
+    str = str.slice(0, str.length - 1);
   }
 
   const withoutProtocol = str.replace(/(http|https):\/\//, '');
@@ -15,7 +15,7 @@ function makeFileName(str) {
 
   const fileName = withoutProtocol.replace(/[^\p{L}\d]/gu, '-');
 
-  return fileName + extension;
+  return extension ? fileName + extension : fileName;
 }
 
 export default makeFileName;

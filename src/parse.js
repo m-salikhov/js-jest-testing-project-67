@@ -14,7 +14,8 @@ async function parse(html, directoryPath, url) {
   await parseLinks($, directoryPath, url);
   // await parseScripts($, directoryPath, url.href);
 
-  const fileNameHTML = url.href.replace(/(http|https):\/\//, '').replace(/[^\p{L}\d]/gu, '-') + '.html';
+  const fileNameHTML = makeFileName(url.href) + '.html';
+
   const filePathHTML = path.join(directoryPath, fileNameHTML);
 
   try {
