@@ -15,22 +15,28 @@ async function parseLinks($, directoryPath, url) {
 
   const linksWithURL = makeURL(links, url);
 
-  for (let [index, link] of linksWithURL.entries()) {
-    if (!getExtension(link)) continue;
+  const linksForHTML = [];
+
+  for (let link of linksWithURL.values()) {
+    if (!getExtension(link)) {
+      linksForHTML.push(link);
+      continue;
+    }
 
     try {
-      const data = await axios.get(link).then((res) => res.data);
+      const data = await axios.get(link, { responseType: 'arraybuffer' }).then((res) => res.data);
       const fileName = makeFileName(link);
       await writeFile(directoryPath + '/' + fileName, data);
+      linksForHTML.push(fileName);
       debugLogger('file link created %o', fileName);
     } catch (error) {
       console.error('Axios can`t get ' + link);
     }
   }
 
-  // linksElements.each((i, el) => {
-  //   $(el).attr('href', linksNames[i]);
-  // });
+  linksElements.each((i, el) => {
+    $(el).attr('href', linksForHTML[i]);
+  });
 }
 
 export default parseLinks;

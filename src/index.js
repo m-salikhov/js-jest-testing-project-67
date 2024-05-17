@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import makeFileName from './utils/makeFileName.js';
 import parse from '../src/parse.js';
 import path from 'path';
 import _axios from './utils/axiosInstance.js';
@@ -18,7 +17,6 @@ async function savePage(link, output = '') {
   }
 
   const directoryName = link.replace(/(http|https):\/\//, '').replace(/[^\p{L}\d]/gu, '-') + '_files';
-
   const directoryPath = path.join(process.cwd(), output, directoryName);
   try {
     await mkdir(directoryPath);
@@ -26,8 +24,10 @@ async function savePage(link, output = '') {
     throw error;
   }
 
+  const url = new URL(link);
+
   try {
-    await parse(html, directoryPath, link);
+    await parse(html, directoryPath, url);
   } catch (error) {
     throw error;
   }
