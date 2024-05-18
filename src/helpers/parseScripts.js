@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
-import makeFileName from '../utils/makeFileName.js';
-import { getExtension } from '../utils/makeFileName.js';
 import debugLogger from '../utils/debugLog.js';
+import { getExtension, makeURL, makeName } from '../utils/UrlTransform.js';
 
 async function parseScripts($, directoryPath, url) {
   const scriptsElements = $('script');
@@ -12,43 +11,29 @@ async function parseScripts($, directoryPath, url) {
     scripts.push($(el).attr('src'));
   });
 
-  const scriptsNames = [];
-  for (let [index, script] of scripts.entries()) {
-    if (!script) {
-      scriptsNames.push('');
+  const scriptsWithURL = makeURL(scripts, url);
+
+  const scriptsForHTML = [];
+
+  for (let script of scriptsWithURL.values()) {
+    if (!getExtension(script)) {
+      scriptsForHTML.push(script);
       continue;
-    }
-
-    if (script.includes('http') && !script.includes(url.origin)) {
-      scriptsNames.push(script);
-      continue;
-    }
-
-    if (script.includes(url.origin)) {
-      scriptsNames.push(makeFileName(script));
-    }
-
-    if (/^\/[^\/]/.test(script) && getExtension(script)) {
-      scriptsNames.push(makeFileName(url.origin + script));
-      script = url.origin + script;
-    }
-
-    if (/^\/\//.test(script && getExtension(script))) {
-      scriptsNames.push(makeFileName(url.origin + script));
-      script = url.protocol + script;
     }
 
     try {
-      const data = await axios.get(script).then((res) => res.data);
-      await writeFile(directoryPath + '/' + scriptsNames[index], data);
-      debugLogger('file script created %o', scriptsNames[index]);
+      const data = await axios.get(script, { responseType: 'arraybuffer' }).then((res) => res.data);
+      const fileName = makeName(script);
+      await writeFile(directoryPath + '/' + fileName, data);
+      scriptsForHTML.push(fileName);
+      debugLogger('file script created %o', fileName);
     } catch (error) {
       console.log('Axios can`t get ' + script);
     }
   }
 
   scriptsElements.each((i, el) => {
-    $(el).attr('src', scriptsNames[i]);
+    $(el).attr('src', scriptsForHTML[i]);
   });
 }
 

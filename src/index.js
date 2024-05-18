@@ -3,7 +3,7 @@ import parse from '../src/parse.js';
 import path from 'path';
 import _axios from './utils/axiosInstance.js';
 import { mkdir } from 'node:fs/promises';
-import makeFileName from './utils/makeFileName.js';
+import { makeName } from './utils/UrlTransform.js';
 
 async function savePage(link, output = '') {
   const url = new URL(link);
@@ -15,7 +15,7 @@ async function savePage(link, output = '') {
     throw error.cause;
   }
 
-  const directoryName = makeFileName(url.href) + '_files';
+  const directoryName = makeName(url.href) + '_files';
   const directoryPath = path.join(process.cwd(), output, directoryName);
   try {
     await mkdir(directoryPath);

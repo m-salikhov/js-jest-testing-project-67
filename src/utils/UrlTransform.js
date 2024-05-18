@@ -4,7 +4,7 @@ export function getExtension(str) {
   return extension ? extension[0] : null;
 }
 
-function makeFileName(str) {
+export function makeName(str) {
   if (str.at(-1) === `/`) {
     str = str.slice(0, str.length - 1);
   }
@@ -18,4 +18,16 @@ function makeFileName(str) {
   return extension ? fileName + extension : fileName;
 }
 
-export default makeFileName;
+export function makeURL(linksArr, url) {
+  const arr = linksArr.map((v) => {
+    if (!v) {
+      return '';
+    } else if (v.startsWith('//')) {
+      return url.protocol + v;
+    } else if (v.startsWith('/')) {
+      return url.origin + v;
+    } else return v;
+  });
+
+  return arr;
+}

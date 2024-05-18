@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio';
 import { writeFile } from 'node:fs/promises';
-import makeFileName from './utils/makeFileName.js';
+import { makeName } from './utils/UrlTransform.js';
 import path from 'path';
 import prettifyHTMl from './utils/prettifyHTML.js';
 import parseImages from './helpers/parseImages.js';
@@ -12,9 +12,9 @@ async function parse(html, directoryPath, url) {
 
   await parseImages($, directoryPath, url);
   await parseLinks($, directoryPath, url);
-  // await parseScripts($, directoryPath, url.href);
+  await parseScripts($, directoryPath, url);
 
-  const fileNameHTML = makeFileName(url.href) + '.html';
+  const fileNameHTML = makeName(url.href) + '.html';
 
   const filePathHTML = path.join(directoryPath, fileNameHTML);
 

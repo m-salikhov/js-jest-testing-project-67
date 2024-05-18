@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
-import { getExtension } from '../utils/makeFileName.js';
-import makeFileName from '../utils/makeFileName.js';
 import debugLogger from '../utils/debugLog.js';
-import { makeURL } from '../utils/makeURL.js';
+import { getExtension, makeURL, makeName } from '../utils/UrlTransform.js';
 
 async function parseLinks($, directoryPath, url) {
   const linksElements = $('link');
@@ -25,7 +23,7 @@ async function parseLinks($, directoryPath, url) {
 
     try {
       const data = await axios.get(link, { responseType: 'arraybuffer' }).then((res) => res.data);
-      const fileName = makeFileName(link);
+      const fileName = makeName(link);
       await writeFile(directoryPath + '/' + fileName, data);
       linksForHTML.push(fileName);
       debugLogger('file link created %o', fileName);
