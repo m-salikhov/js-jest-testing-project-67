@@ -20,9 +20,14 @@ async function parseScripts($, directoryPath, url) {
       scriptsForHTML.push(script);
       continue;
     }
+    const data = await axios
+      .get(script, { responseType: 'arraybuffer' })
+      .then((res) => res.data)
+      .catch((error) => {
+        handleAxiosError(error);
+      });
 
     try {
-      const data = await axios.get(script, { responseType: 'arraybuffer' }).then((res) => res.data);
       const fileName = makeName(script);
       await writeFile(directoryPath + '/' + fileName, data);
       scriptsForHTML.push(fileName);

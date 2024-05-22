@@ -20,9 +20,14 @@ async function parseLinks($, directoryPath, url) {
       linksForHTML.push(link);
       continue;
     }
+    const data = await axios
+      .get(link, { responseType: 'arraybuffer' })
+      .then((res) => res.data)
+      .catch((error) => {
+        handleAxiosError(error);
+      });
 
     try {
-      const data = await axios.get(link, { responseType: 'arraybuffer' }).then((res) => res.data);
       const fileName = makeName(link);
       await writeFile(directoryPath + '/' + fileName, data);
       linksForHTML.push(fileName);

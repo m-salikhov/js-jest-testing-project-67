@@ -2,6 +2,7 @@ import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
 import debugLogger from '../utils/debugLog.js';
 import { getExtension, makeURL, makeName } from '../utils/UrlTransform.js';
+import { handleAxiosError } from '../utils/handleAxiosError.js';
 
 async function parseImages($, directoryPath, url) {
   const imgs = $('img');
@@ -20,14 +21,21 @@ async function parseImages($, directoryPath, url) {
       continue;
     }
 
+    const data = await axios
+      .get(imageLink, { responseType: 'arraybuffer' })
+      .then((res) => res.data)
+      .catch((error) => {
+        handleAxiosError(error);
+      });
+
     try {
-      const data = await axios.get(imageLink, { responseType: 'arraybuffer' }).then((res) => res.data);
       const fileName = makeName(imageLink);
       await writeFile(directoryPath + '/' + fileName, data);
       ImagesLinksForHTML.push(fileName);
       debugLogger('image created %o', fileName);
     } catch (error) {
-      console.error('Axios can`t get ' + link);
+      //TODO
+      console.error('can/t write');
     }
   }
 
