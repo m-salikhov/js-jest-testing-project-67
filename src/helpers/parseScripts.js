@@ -30,6 +30,11 @@ async function parseScripts($, directoryPath, url) {
         handleAxiosError(error);
       });
 
+    if (!data) {
+      scriptsForHTML.push(script);
+      continue;
+    }
+
     try {
       const fileName = makeName(script);
       await writeFile(directoryPath + '/' + fileName, data);

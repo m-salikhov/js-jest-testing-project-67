@@ -30,6 +30,11 @@ async function parseLinks($, directoryPath, url) {
         handleAxiosError(error);
       });
 
+    if (!data) {
+      linksForHTML.push(link);
+      continue;
+    }
+
     try {
       const fileName = makeName(link);
       await writeFile(directoryPath + '/' + fileName, data);

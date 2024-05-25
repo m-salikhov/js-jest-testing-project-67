@@ -25,10 +25,9 @@ async function savePage(link, output = '') {
       exit(1);
     });
 
-  let directoryName, directoryPath;
+  let directoryName = makeName(url.href) + '_files';
+  let directoryPath = path.join(process.cwd(), output, directoryName);
   try {
-    directoryName = makeName(url.href) + '_files';
-    directoryPath = path.join(process.cwd(), output, directoryName);
     await mkdir(directoryPath);
   } catch (error) {
     console.log('DIR');

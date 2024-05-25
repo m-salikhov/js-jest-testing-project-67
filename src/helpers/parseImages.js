@@ -31,6 +31,11 @@ async function parseImages($, directoryPath, url) {
         handleAxiosError(error);
       });
 
+    if (!data) {
+      ImagesLinksForHTML.push(imageLink);
+      continue;
+    }
+
     try {
       const fileName = makeName(imageLink);
       await writeFile(directoryPath + '/' + fileName, data);
