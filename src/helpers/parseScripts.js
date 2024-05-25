@@ -2,6 +2,7 @@ import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
 import debugLogger from '../utils/debugLog.js';
 import UrlTransform from '../utils/UrlTransform.js';
+import chalk from 'chalk';
 
 async function parseScripts($, directoryPath, url) {
   const scriptsElements = $('script');
@@ -35,7 +36,7 @@ async function parseScripts($, directoryPath, url) {
       scriptsForHTML.push(fileName);
       debugLogger('file script created %o', fileName);
     } catch (error) {
-      console.log('Axios can`t get ' + script);
+      console.error("Can't write " + chalk.red(`"${script}"`));
     }
   }
 

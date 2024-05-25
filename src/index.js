@@ -2,16 +2,22 @@ import 'dotenv/config';
 import parse from '../src/parse.js';
 import path from 'path';
 import _axios from './utils/axiosInstance.js';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, rm } from 'node:fs/promises';
 import { makeName } from './utils/UrlTransform.js';
 import { exit } from 'node:process';
 import { handleAxiosError } from './utils/handleAxiosError.js';
+import chalk from 'chalk';
 
 async function savePage(link, output = '') {
-  const url = new URL(link);
+  let url;
+  try {
+    url = new URL(link);
+  } catch (error) {
+    console.error(chalk.red(`"${link}" not an URL. Сheck the spelling`));
+    exit(1);
+  }
 
-  let html;
-  html = await _axios
+  const html = await _axios
     .get(url.href)
     .then((res) => res.data)
     .catch((error) => {
@@ -19,18 +25,23 @@ async function savePage(link, output = '') {
       exit(1);
     });
 
-  const directoryName = makeName(url.href) + '_files';
-  const directoryPath = path.join(process.cwd(), output, directoryName);
+  let directoryName, directoryPath;
   try {
+    directoryName = makeName(url.href) + '_files';
+    directoryPath = path.join(process.cwd(), output, directoryName);
     await mkdir(directoryPath);
   } catch (error) {
-    throw error;
+    console.log('DIR');
+    console.error(chalk.red(error.stack));
+    exit(1);
   }
 
   try {
     await parse(html, directoryPath, url);
   } catch (error) {
+    console.log('INDEX PARSE');
     console.log(error.stack);
+    await rm(directoryPath, { recursive: true, force: true });
     exit(1);
   }
 

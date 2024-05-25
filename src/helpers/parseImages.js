@@ -3,6 +3,7 @@ import { writeFile } from 'node:fs/promises';
 import debugLogger from '../utils/debugLog.js';
 import UrlTransform from '../utils/UrlTransform.js';
 import { handleAxiosError } from '../utils/handleAxiosError.js';
+import chalk from 'chalk';
 
 async function parseImages($, directoryPath, url) {
   const imgs = $('img');
@@ -36,8 +37,7 @@ async function parseImages($, directoryPath, url) {
       ImagesLinksForHTML.push(fileName);
       debugLogger('image created %o', fileName);
     } catch (error) {
-      //TODO
-      console.error('can/t write');
+      console.error("Can't write " + chalk.red(`"${imageLink}"`));
     }
   }
 

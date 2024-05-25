@@ -18,12 +18,8 @@ async function parse(html, directoryPath, url) {
 
   const filePathHTML = path.join(directoryPath, fileNameHTML);
 
-  try {
-    await writeFile(filePathHTML, $.html().trim());
-    await prettifyHTMl(filePathHTML);
-  } catch (error) {
-    throw error;
-  }
+  await writeFile(filePathHTML, $.html().trim());
+  await prettifyHTMl(filePathHTML);
 }
 
 export default parse;

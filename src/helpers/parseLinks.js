@@ -2,6 +2,7 @@ import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
 import debugLogger from '../utils/debugLog.js';
 import UrlTransform from '../utils/UrlTransform.js';
+import chalk from 'chalk';
 
 async function parseLinks($, directoryPath, url) {
   const linksElements = $('link');
@@ -35,7 +36,7 @@ async function parseLinks($, directoryPath, url) {
       linksForHTML.push(fileName);
       debugLogger('file link created %o', fileName);
     } catch (error) {
-      console.error('Axios can`t get ' + link);
+      console.error("Can't write " + chalk.red(`"${link}"`));
     }
   }
 
