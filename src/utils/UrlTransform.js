@@ -31,3 +31,5 @@ export function makeURL(linksArr, url) {
 
   return arr;
 }
+
+export default { makeName, makeURL, getExtension };

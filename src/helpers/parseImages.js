@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
 import debugLogger from '../utils/debugLog.js';
-import { getExtension, makeURL, makeName } from '../utils/UrlTransform.js';
+import UrlTransform from '../utils/UrlTransform.js';
 import { handleAxiosError } from '../utils/handleAxiosError.js';
 
 async function parseImages($, directoryPath, url) {
   const imgs = $('img');
+
+  const { getExtension, makeName, makeURL } = UrlTransform;
 
   const imagesLinks = [];
   imgs.each((i, el) => {

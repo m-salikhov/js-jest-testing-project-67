@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import chalk from 'chalk';
 import parse from '../src/parse.js';
 import path from 'path';
 import _axios from './utils/axiosInstance.js';
@@ -31,7 +30,8 @@ async function savePage(link, output = '') {
   try {
     await parse(html, directoryPath, url);
   } catch (error) {
-    throw error;
+    console.log(error.stack);
+    exit(1);
   }
 
   return { directoryPath };

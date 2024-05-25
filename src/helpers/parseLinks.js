@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
 import debugLogger from '../utils/debugLog.js';
-import { getExtension, makeURL, makeName } from '../utils/UrlTransform.js';
+import UrlTransform from '../utils/UrlTransform.js';
 
 async function parseLinks($, directoryPath, url) {
   const linksElements = $('link');
+
+  const { getExtension, makeName, makeURL } = UrlTransform;
 
   const links = [];
   linksElements.each((i, el) => {
