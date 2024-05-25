@@ -2,6 +2,7 @@ import axios from 'axios';
 import { writeFile } from 'node:fs/promises';
 import debugLogger from '../utils/debugLog.js';
 import UrlTransform from '../utils/UrlTransform.js';
+import { handleAxiosError } from '../utils/handleAxiosError.js';
 import chalk from 'chalk';
 
 async function parseLinks($, directoryPath, url) {

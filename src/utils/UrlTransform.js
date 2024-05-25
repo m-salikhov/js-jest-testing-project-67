@@ -9,7 +9,10 @@ export function makeName(str) {
     str = str.slice(0, str.length - 1);
   }
 
-  const withoutProtocol = str.replace(/(http|https):\/\//, '');
+  //перенести в makeURL?
+  const decodeStr = decodeURI(str);
+
+  const withoutProtocol = decodeStr.replace(/(http|https):\/\//, '');
 
   const extension = getExtension(withoutProtocol);
 
@@ -18,6 +21,7 @@ export function makeName(str) {
   return extension ? fileName + extension : fileName;
 }
 
+//переделать под одиночную строку
 export function makeURL(linksArr, url) {
   const arr = linksArr.map((v) => {
     if (!v) {
