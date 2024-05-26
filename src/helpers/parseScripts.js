@@ -3,6 +3,7 @@ import { writeFile } from 'node:fs/promises';
 import debugLogger from '../utils/debugLog.js';
 import UrlTransform from '../utils/UrlTransform.js';
 import chalk from 'chalk';
+import { handleAxiosError } from '../utils/handleAxiosError.js';
 
 async function parseScripts($, directoryPath, url) {
   const scriptsElements = $('script');
