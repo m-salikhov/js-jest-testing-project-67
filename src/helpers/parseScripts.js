@@ -14,7 +14,7 @@ async function parseScripts($, directoryPath, url) {
     scripts.push($(el).attr('src'));
   });
 
-  const scriptsWithURL = makeURL(scripts, url);
+  const scriptsWithURL = scripts.map((v) => makeURL(v, url));
 
   const scriptsForHTML = [];
 
@@ -29,11 +29,6 @@ async function parseScripts($, directoryPath, url) {
       .catch((error) => {
         handleAxiosError(error);
       });
-
-    if (!data) {
-      scriptsForHTML.push(script);
-      continue;
-    }
 
     try {
       const fileName = makeName(script);

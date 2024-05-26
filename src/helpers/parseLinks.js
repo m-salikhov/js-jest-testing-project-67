@@ -15,7 +15,7 @@ async function parseLinks($, directoryPath, url) {
     links.push($(el).attr('href'));
   });
 
-  const linksWithURL = makeURL(links, url);
+  const linksWithURL = links.map((v) => makeURL(v, url));
 
   const linksForHTML = [];
 
@@ -30,11 +30,6 @@ async function parseLinks($, directoryPath, url) {
       .catch((error) => {
         handleAxiosError(error);
       });
-
-    if (!data) {
-      linksForHTML.push(link);
-      continue;
-    }
 
     try {
       const fileName = makeName(link);

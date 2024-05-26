@@ -15,7 +15,7 @@ async function parseImages($, directoryPath, url) {
     imagesLinks.push($(el).attr('src'));
   });
 
-  const imagesLinksWithURL = makeURL(imagesLinks, url);
+  const imagesLinksWithURL = imagesLinks.map((v) => makeURL(v, url));
 
   const ImagesLinksForHTML = [];
   for (let imageLink of imagesLinksWithURL.values()) {
@@ -30,11 +30,6 @@ async function parseImages($, directoryPath, url) {
       .catch((error) => {
         handleAxiosError(error);
       });
-
-    if (!data) {
-      ImagesLinksForHTML.push(imageLink);
-      continue;
-    }
 
     try {
       const fileName = makeName(imageLink);

@@ -30,7 +30,6 @@ async function savePage(link, output = '') {
   try {
     await mkdir(directoryPath);
   } catch (error) {
-    console.log('DIR');
     console.error(chalk.red(error.stack));
     exit(1);
   }
@@ -38,8 +37,7 @@ async function savePage(link, output = '') {
   try {
     await parse(html, directoryPath, url);
   } catch (error) {
-    console.log('INDEX PARSE');
-    console.log(error.stack);
+    console.error(error.stack);
     await rm(directoryPath, { recursive: true, force: true });
     exit(1);
   }
