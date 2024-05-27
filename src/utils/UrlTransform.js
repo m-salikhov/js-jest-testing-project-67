@@ -20,7 +20,6 @@ export function makeName(str) {
   return extension ? fileName + extension : fileName;
 }
 
-//переделать под одиночную строку
 export function makeURL(str, url) {
   if (!str) {
     return '';
