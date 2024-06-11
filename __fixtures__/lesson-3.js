@@ -7,6 +7,8 @@ const start = Date.now();
 
 const file = readFileSync('./file.mp4');
 
+let test = 'error';
+
 const performanceObserver = new PerformanceObserver((items) => {
   items.getEntries().forEach((entry) => {
     console.log(`${entry.name}: ${entry.duration}`);

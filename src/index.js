@@ -17,6 +17,8 @@ async function savePage(link, output = '') {
     exit(1);
   }
 
+  // console.log(chalk.red(path.resolve(output)));
+
   const html = await _axios
     .get(url.href)
     .then((res) => res.data)
@@ -27,6 +29,7 @@ async function savePage(link, output = '') {
 
   let directoryName = makeName(url.href) + '_files';
   let directoryPath = path.join(process.cwd(), output, directoryName);
+
   try {
     await mkdir(directoryPath);
   } catch (error) {

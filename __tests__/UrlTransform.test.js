@@ -16,9 +16,7 @@ describe('makeName should change all characters in the string to "-" except numb
     );
   });
   test('jpeg file', () => {
-    expect(makeName('http://ru.test=тест?Exa123mple#foo.17.jpeg', url)).toBe(
-      'ru-test-тест-Exa123mple-foo-17-jpeg.jpeg'
-    );
+    expect(makeName('http://ru.test=тест?Exa123mple#foo.17.jpeg', url)).toBe('ru-test-тест-Exa123mple-foo-17.jpeg');
   });
   test('random str', () => {
     expect(makeName('Rand0m_str!ng', url)).toBe('Rand0m-str-ng');

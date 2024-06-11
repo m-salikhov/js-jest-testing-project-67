@@ -11,9 +11,13 @@ export function makeName(str) {
 
   const decodeStr = decodeURI(str);
 
-  const withoutProtocol = decodeStr.replace(/(http|https):\/\//, '');
+  let withoutProtocol = decodeStr.replace(/(http|https):\/\//, '');
 
   const extension = getExtension(withoutProtocol);
+
+  if (withoutProtocol.endsWith(extension)) {
+    withoutProtocol = withoutProtocol.slice(0, withoutProtocol.length - extension.length);
+  }
 
   const fileName = withoutProtocol.replace(/[^\p{L}\d]/gu, '-');
 
