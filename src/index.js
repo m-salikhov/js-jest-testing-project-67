@@ -4,7 +4,7 @@ import path from 'path';
 import _axios from './utils/axiosInstance.js';
 import { mkdir, rm } from 'node:fs/promises';
 import { makeName } from './utils/UrlTransform.js';
-import { exit } from 'node:process';
+import process from 'node:process';
 import { handleAxiosError } from './utils/handleAxiosError.js';
 import chalk from 'chalk';
 
@@ -14,7 +14,7 @@ async function savePage(link, output = '') {
     url = new URL(link);
   } catch (error) {
     console.error(chalk.red(`"${link}" not an URL. Сheck the spelling`));
-    exit(1);
+    process.exit(1);
   }
 
   // console.log(chalk.red(path.resolve(output)));
@@ -24,7 +24,7 @@ async function savePage(link, output = '') {
     .then((res) => res.data)
     .catch((error) => {
       handleAxiosError(error);
-      exit(1);
+      process.exit(1);
     });
 
   let directoryName = makeName(url.href) + '_files';
@@ -34,7 +34,7 @@ async function savePage(link, output = '') {
     await mkdir(directoryPath);
   } catch (error) {
     console.error(chalk.red(error.stack));
-    exit(1);
+    process.exit(1);
   }
 
   try {
@@ -42,7 +42,7 @@ async function savePage(link, output = '') {
   } catch (error) {
     console.error(error.stack);
     await rm(directoryPath, { recursive: true, force: true });
-    exit(1);
+    process.exit(1);
   }
 
   return { directoryPath };
