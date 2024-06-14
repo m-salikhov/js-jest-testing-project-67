@@ -4,7 +4,6 @@ import path from 'path';
 import _axios from './utils/axiosInstance.js';
 import { mkdir, rm } from 'node:fs/promises';
 import { makeName } from './utils/UrlTransform.js';
-import process from 'node:process';
 import { handleAxiosError } from './utils/handleAxiosError.js';
 import chalk from 'chalk';
 
@@ -16,8 +15,6 @@ async function savePage(link, output = '') {
     console.error(chalk.red(`"${link}" not an URL. Сheck the spelling`));
     process.exit(1);
   }
-
-  // console.log(chalk.red(path.resolve(output)));
 
   const html = await _axios
     .get(url.href)
