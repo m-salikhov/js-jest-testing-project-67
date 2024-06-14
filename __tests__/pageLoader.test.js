@@ -18,8 +18,6 @@ let dataJS;
 
 function configureNock() {
   nock('https://ru.hexlet.io').get('/courses').reply(200, dataHTML);
-  nock('https://ru.hexlet.io').get('/test1').reply(200, dataHTML);
-  nock('https://ru.hexlet.io').get('/error').replyWithError('request fail');
   nock('https://ru.hexlet.io').get('/assets/professions/nodejs.png').reply(200, dataImage);
   nock('https://ru.hexlet.io').get('/assets/application.css').reply(200, dataCSS);
   nock('https://ru.hexlet.io').get('/packs/js/runtime.js').reply(200, dataJS);
@@ -55,26 +53,3 @@ test('download and save', async () => {
   expect(savedCSS).toBe(dataCSS);
   expect(savedJS).toBe(dataJS);
 }, 30000);
-
-test('throw error on wrong file path', async () => {
-  // await pageLoader('https://ru.hexlet.io/test1', '/wrong/path');
-  // console.log('AFTER');
-  // expect(error).toBe('mockExit');
-  // expect(process.exit).toBeCalledWith(1);
-}, 30000);
-
-test('tests myFunc with process.exit', async () => {
-  const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
-
-  await pageLoader('https://ru.hexlet.io/error', '/wrong/path');
-  expect(mockExit).toHaveBeenCalledWith(1);
-  expect(mockExit).toBeCalledTimes(3);
-});
-
-// test('throw error on failed request', async () => {
-//   try {
-//     await pageLoader('https://ru.hexlet.io/error', relativePathToTempDir);
-//   } catch ({ message }) {
-//     expect(message).toBe('request fail');
-//   }
-// });

@@ -11,9 +11,8 @@ export function handleAxiosError(error) {
     // Запрос был сделан, но ответ не получен
     // `error.request`- это экземпляр XMLHttpRequest в браузере и экземпляр
     // http.ClientRequest в node.js
-    console.error(chalk.red(`Request failed. Check if there is a typo in ${error.config.url} `));
+    console.error(chalk.red(`Request failed. Check if there is a typo in ${error.config.url}`));
   } else {
-    // Произошло что-то при настройке запроса, вызвавшее ошибку
     console.error(chalk.red(error.stack));
   }
 }

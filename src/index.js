@@ -12,7 +12,7 @@ async function savePage(link, output = '') {
   try {
     url = new URL(link);
   } catch (error) {
-    console.error(chalk.red(`"${link}" not an URL. Сheck the spelling`));
+    console.error(chalk.red(`"${error.message}". Сheck the spelling`));
     process.exit(1);
   }
 
@@ -30,14 +30,14 @@ async function savePage(link, output = '') {
   try {
     await mkdir(directoryPath);
   } catch (error) {
-    console.error(chalk.red(error.stack));
+    console.error(chalk.red(error.message));
     process.exit(1);
   }
 
   try {
     await parse(html, directoryPath, url);
   } catch (error) {
-    console.error(error.stack);
+    console.error(error.message);
     await rm(directoryPath, { recursive: true, force: true });
     process.exit(1);
   }
