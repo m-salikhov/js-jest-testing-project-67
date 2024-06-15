@@ -12,7 +12,7 @@ async function savePage(link, output = '') {
   try {
     url = new URL(link);
   } catch (error) {
-    console.error(chalk.red(`"${error.message}". Сheck the spelling`));
+    console.error(chalk.red(`${error.message}. Сheck the spelling`));
     process.exit(1);
   }
 

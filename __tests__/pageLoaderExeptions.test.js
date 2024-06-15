@@ -29,7 +29,7 @@ test('несуществующий адрес', async () => {
 });
 
 test('нет адреса', async () => {
-  const errorMessage = chalk.red(`"Invalid URL". Сheck the spelling`);
+  const errorMessage = chalk.red(`Invalid URL. Сheck the spelling`);
 
   try {
     await pageLoader();
@@ -40,14 +40,10 @@ test('нет адреса', async () => {
 });
 
 test('не сущестует папки для сохранения', async () => {
-  const errorMessage = chalk.red(
-    `ENOENT: no such file or directory, mkdir 'C:\\Users\\user\\Documents\\code\\js-jest-testing-project-67\\wrong\\path\\ru-hexlet-io-courses_files'`
-  );
-
   try {
     await pageLoader('https://ru.hexlet.io/courses', '/wrong/path');
   } catch (error) {
     expect(mockExit.mock.calls[2][0]).toBe(1);
-    expect(mockConsole.mock.calls[2][0]).toBe(errorMessage);
+    expect(mockConsole.mock.calls[2][0].includes('ENOENT')).toBeTruthy();
   }
 });
