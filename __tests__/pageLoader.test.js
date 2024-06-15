@@ -41,7 +41,6 @@ beforeAll(async () => {
 
 test('download and save', async () => {
   const { directoryPath } = await pageLoader('https://ru.hexlet.io/courses', relativePathToTempDir);
-  console.log({ directoryPath });
   const outputFixture = await fs.readFile(filePathFixtures('lesson3-output.html'), 'utf-8');
   const savedHTML = await fs.readFile(directoryPath + '/ru-hexlet-io-courses.html', 'utf-8');
   const savedImage = await fs.readFile(directoryPath + '/ru-hexlet-io-assets-professions-nodejs.png');
