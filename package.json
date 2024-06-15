@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "start": "page-loader"
+    "start": "node bin/page-loader.js"
   },
   "bin": {
     "page-loader": "bin/page-loader.js"
