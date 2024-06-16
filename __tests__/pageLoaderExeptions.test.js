@@ -1,4 +1,4 @@
-import { expect, jest, test } from '@jest/globals';
+import { afterAll, expect, jest, test } from '@jest/globals';
 import nock from 'nock';
 import pageLoader from '../src/index.js';
 import chalk from 'chalk';
@@ -15,6 +15,10 @@ beforeAll(() => {
   mockConsole = jest.spyOn(console, 'error').mockImplementation(() => {});
 
   configureNock();
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
 });
 
 test('несуществующий адрес', async () => {

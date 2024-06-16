@@ -10,6 +10,7 @@ program
   .version('0.0.1', '-v, -V, --version', 'output the current version')
   .argument('<url>')
   .action(async (url, option) => {
+    console.log(option);
     const output = option.output ? option.output : '';
 
     const { directoryPath } = await savePage(url, output);
