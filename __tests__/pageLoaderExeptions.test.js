@@ -1,6 +1,6 @@
 import { afterAll, expect, jest, test } from '@jest/globals';
 import nock from 'nock';
-import pageLoader from '../src/index.js';
+import pageLoader from '../project/code/index.js';
 import chalk from 'chalk';
 
 function configureNock() {

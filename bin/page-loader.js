@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-import savePage from '../src/index.js';
+import savePage from '../project/code/index.js';
 import debugLogger from '../src/utils/debugLog.js';
 
 program

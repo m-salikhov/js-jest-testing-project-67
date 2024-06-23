@@ -1,10 +1,10 @@
 import 'dotenv/config';
-import parse from '../src/parse.js';
+import parse from '../../src/parse.js';
 import path from 'path';
-import _axios from './utils/axiosInstance.js';
+import _axios from '../../src/utils/axiosInstance.js';
 import { mkdir, rm } from 'node:fs/promises';
-import { makeName } from './utils/UrlTransform.js';
-import { handleAxiosError } from './utils/handleAxiosError.js';
+import { makeName } from '../../src/utils/UrlTransform.js';
+import { handleAxiosError } from '../../src/utils/handleAxiosError.js';
 import chalk from 'chalk';
 
 async function savePage(link, output = '') {

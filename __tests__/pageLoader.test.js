@@ -5,7 +5,7 @@ import fs from 'node:fs/promises';
 import path from 'path';
 import nock from 'nock';
 import { fileURLToPath } from 'url';
-import pageLoader from '../src/index.js';
+import pageLoader from '../project/code/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
